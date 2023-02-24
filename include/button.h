@@ -17,6 +17,7 @@ extern "C"
 // Dependencies
 // ====================================================================================================
 #include <stdint.h>
+#include <Arduino.h>
 
 // ====================================================================================================
 // Macro definitions (public)
@@ -28,7 +29,8 @@ extern "C"
     typedef struct
     {
         /* data */
-        uint8_t pin; /**<Para asignarle un pin al inicializar el objeto*/
+        uint8_t pin;       
+        bool switcheo;  
     } button_t;
 
 // ====================================================================================================
@@ -44,6 +46,7 @@ extern "C"
     boton_init(button_t *p_self, uint8_t pin)
     {
         p_self->pin = pin;
+        p_self->switcheo = false;
     }
 
 // ====================================================================================================
@@ -51,7 +54,11 @@ extern "C"
 // ====================================================================================================
 
     uint8_t
-    presionado(button_t *p_self);
+    presionado(button_t *p_self);          // Determinar si está presionado el boton
+
+    bool 
+    estado_boton3(button_t *p_self);       // Estado del boton 3
+
 
 #ifdef __cplusplus
 }

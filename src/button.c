@@ -1,3 +1,7 @@
+//*****************************************************************************************
+//                                 L I B R E R Í A S  
+//*****************************************************************************************
+// Estándar de bar
 /** @file button.c
  *
  * @brief Antirrebote de los botones.
@@ -34,18 +38,24 @@ uint8_t presionado(button_t *p_self)
     buttonState = digitalRead(p_self->pin);
     if (buttonState != lastButtonState)
     {
-
         if (buttonState == LOW)
         {
-            estado_anterior = 1;
+            estado_anterior = 0;
+
         }
         if (buttonState == HIGH)
         {
-            estado_anterior = 0;
+            estado_anterior = 1;
         }
     }
+
     lastButtonState = buttonState;
     return estado_anterior;
 }
+
+bool estado_boton3(button_t *p_self){
+    return p_self->switcheo; 
+    }
+
 
 /*** end of file ***/

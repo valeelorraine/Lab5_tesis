@@ -1,3 +1,7 @@
+//*****************************************************************************************
+//                               D E F I N I C I O N E S  
+//*****************************************************************************************
+
 #ifndef COUNTER_H
 #define COUNTER_H
 
@@ -5,10 +9,11 @@
 extern "C" {
 #endif
 
-// ====================================================================================================
-// Dependencies
-// ====================================================================================================
+//*****************************************************************************************
+//                                 L I B R E R Í A S  
+//*****************************************************************************************
 #include <Arduino.h> 
+#include "button.h"
 
 // ====================================================================================================
 // Macro definitions (public)
@@ -20,15 +25,19 @@ extern "C" {
 // ====================================================================================================
 typedef struct
 {
-    unsigned char led1;   /**<Led1 for counter */
-    unsigned char led2; /**<Led2 for counter */
-    unsigned char led3;  /**<Led3 for counter */
-    unsigned char led4; /**<Led4 for counter*/
+    unsigned char led1;       /**<Led1 for counter */
+    unsigned char led2;       /**<Led2 for counter */
+    unsigned char led3;       /**<Led3 for counter */
+    unsigned char led4;       /**<Led4 for counter*/
+    uint8_t numero;
+    bool FLAG1;
+    bool FLAG2;
+    bool FLAG3;
 } contadorled_t;
 
 
 // ====================================================================================================
-// Public function definitions
+//                                   Public function definitions
 // ====================================================================================================
 /**
  * @brief Initializes a counter structure.
@@ -39,6 +48,8 @@ typedef struct
  * @param[in] l3            Counter led 3.
  * @param[in] l4            Counter led 4.
  */
+
+// FUnción para inicializar el contador
 static inline void
 init_contador_led(contadorled_t * p_self, unsigned char l1, unsigned char l2, unsigned char l3, unsigned char l4)
 {
@@ -47,14 +58,14 @@ init_contador_led(contadorled_t * p_self, unsigned char l1, unsigned char l2, un
     p_self->led3 = l3;
     p_self->led4 = l4;
 
-    pinMode(p_self->led1, 0);
-    pinMode(p_self->led2, 0);
-    pinMode(p_self->led3, 0);
-    pinMode(p_self->led4, 0);
+    pinMode(p_self->led1, OUTPUT);
+    pinMode(p_self->led2, OUTPUT);
+    pinMode(p_self->led3, OUTPUT);
+    pinMode(p_self->led4, OUTPUT);
 }
 
 // ====================================================================================================
-// Public function prototypes
+//                                  Public function prototypes
 // ====================================================================================================
 /**
  * @brief Show the value of the counter into leds
@@ -62,12 +73,10 @@ init_contador_led(contadorled_t * p_self, unsigned char l1, unsigned char l2, un
  * @param[in] p_self  Points to the counter_led structure.
  * @param[in] numero Set the value of the counter that will show
  */
-void
-mostrar_contador(contadorled_t * p_self, int numero);
-
+void mostrar_contador(contadorled_t * p_self);
+void contador_incrementar(contadorled_t*p_self, button_t *boton1, button_t *boton2);
 
 #ifdef __cplusplus
 }
 #endif
-
 #endif /* COUNTER_H */
